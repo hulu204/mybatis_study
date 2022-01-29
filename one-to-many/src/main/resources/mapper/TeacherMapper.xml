@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mybatis.example.dao.TeacherMapper">
+    <!--结果映射-->
+    <resultMap id="TeacherResult" type="Teacher">
+        <id property="id" column="tid"/>
+        <result property="name" column="tname"/>
+        <collection property="students" ofType="Student" resultMap="StudentResult" columnPrefix="s"/>
+    </resultMap>
+    <resultMap id="StudentResult" type="Student">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+    <select id="getTeachers" resultMap="TeacherResult">
+        select
+            s.id as sid,
+            s.name as sname,
+            t.id as tid,
+            t.name as tname
+        from
+            mybatis.student s,
+            mybatis.teacher t
+        where t.id=s.tid
+          and t.id=#{id}
+
+    </select>
+<!--===================================================================================================-->
+    <!--嵌套查询-->
+<!--    <resultMap id="TeacherResult" type="Teacher">-->
+<!--        <collection property="students" column="id" ofType="Student" select="getStudentsByTid"/>-->
+<!--    </resultMap>-->
+<!--    <select id="getTeachers" resultMap="TeacherResult">-->
+<!--        select * from mybatis.teacher where id=#{id}-->
+<!--    </select>-->
+
+<!--    <select id="getStudentsByTid" resultType="Student">-->
+<!--        select * from mybatis.student where tid=#{id}-->
+<!--    </select>-->
+</mapper>

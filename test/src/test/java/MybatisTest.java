@@ -1,6 +1,6 @@
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
-import org.mybatis.example.Dao.UserMapper;
+import org.mybatis.example.dao.UserMapper;
 import org.mybatis.example.pojo.User;
 import org.mybatis.example.utils.MybatisUtil;
 
